@@ -21,7 +21,7 @@ public class GistList extends Activity {
         setContentView(R.layout.activity_gist_list);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new GistListFragment())
                     .commit();
         }
     }
@@ -49,9 +49,9 @@ public class GistList extends Activity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class GistListFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        public GistListFragment() {
         }
 
         @Override
