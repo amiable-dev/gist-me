@@ -1,16 +1,19 @@
 package uk.me.frugal.gistme;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.DefaultItemAnimator;
 
+import uk.me.frugal.gistme.model.CountryManager;
 
 
 public class GistList extends Activity {
@@ -51,6 +54,9 @@ public class GistList extends Activity {
      */
     public static class GistListFragment extends Fragment {
 
+        private RecyclerView mRecyclerView;
+        private CountryAdapter mAdapter;
+
         public GistListFragment() {
         }
 
@@ -60,5 +66,17 @@ public class GistList extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_gist_list, container, false);
             return rootView;
         }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState){
+            super.onActivityCreated(savedInstanceState);
+            mRecyclerView = (RecyclerView)getView().findViewById(R.id.list);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+            mAdapter = new CountryAdapter(CountryManager.getInstance().getCountries(), R.layout.row_country, getActivity());
+            mRecyclerView.setAdapter(mAdapter);
+        }
+
     }
 }
